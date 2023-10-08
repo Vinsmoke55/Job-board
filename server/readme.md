@@ -1,5 +1,5 @@
-#Django + Djangorestframework
+# Django + Djangorestframework
 
 
-server provides all the data 
+Server provides all the data 
 needed to the client
