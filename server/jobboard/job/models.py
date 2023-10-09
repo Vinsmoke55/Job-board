@@ -5,7 +5,7 @@ class UserProfile(models.Model):
 	name=models.CharField(max_length=255)
 	email=models.EmailField()
 	skill=models.TextField()
-	resume=models.FileField(upload_to='resume/')
+	# resume=models.FileField(upload_to='resume/')
 	job_interest=models.TextField()
 
 	def __str__(self):
