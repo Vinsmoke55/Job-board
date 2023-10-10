@@ -12,7 +12,7 @@ class UserProfile(models.Model):
 		return self.email
 
 class JobPosting(models.Model):
-	company_logo=models.ImageField()
+	company_logo=models.ImageField(upload_to='assets/')
 	job_title=models.CharField(max_length=255)
 	company_name=models.CharField(max_length=255)
 	location=models.CharField(max_length=255)
