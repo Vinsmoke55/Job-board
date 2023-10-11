@@ -19,6 +19,7 @@ class JobPosting(models.Model):
 	job_description=models.TextField()
 	salary_range=models.CharField(max_length=255)
 	required_skill=models.TextField()
+	poster=models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.job_title
@@ -28,6 +29,7 @@ class JobApplicaton(models.Model):
 	job_title=models.CharField(max_length=255)
 	letter=models.TextField()
 	user_resume=models.FileField(upload_to='resume/')
+	applicator=models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.job_title
