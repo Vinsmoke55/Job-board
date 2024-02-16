@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [data, setData] = useState(null);
+  const navigateTo=useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,15 +15,8 @@ const LoginForm = () => {
         username,
         password,
       });
-
-      // Assuming the server responds with user data upon successful login
-      const receivedUserData = response.data;
-
-      // Store the user data in the component state
-      setData(receivedUserData);
-
-      // You can perform additional actions, such as redirecting to another page
-      // history.push('/dashboard');
+      console.log('login sucessful')
+      navigateTo('/')
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -30,11 +24,6 @@ const LoginForm = () => {
 
   return (
     <div>
-      {data ? (
-        <>
-          <h1>You are logged in as {data.username}</h1>
-        </>
-      ) : (
         <form className="max-w-md mx-auto mt-8" onSubmit={handleLogin}>
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Username:
@@ -61,7 +50,6 @@ const LoginForm = () => {
             Login
           </button>
         </form>
-      )}
     </div>
   );
 };

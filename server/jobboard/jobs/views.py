@@ -33,9 +33,15 @@ class LoginView(APIView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return Response({'username': user.username, "password": user.password}, status=status.HTTP_201_CREATED)
+            return Response({'message': "Login sucessful"})
         else:
             return Response({'message': "Login failed"}, status=status.HTTP_400_BAD_REQUEST)
+    def get(self,request):
+            user_info = {
+                'username': request.user.username,
+                'email': request.user.email,
+            }
+            return Response(user_info)
 
         
 
@@ -46,4 +52,15 @@ class JobsView(APIView):
 		jobs=Job.objects.all()
 		serializer=JobSerializer(jobs,many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CreateJobView(APIView):
+    def post(self,request):
+        title = request.data.get('title')
+        company =request.data.get('company')
+        location = request.data.get('location')
+        description = request.data.get('description')
+        requirements = request.data.get('requirements')
+        Job.objects.create(title=title,company=company,location=location,description=description,requirements=requirements)
+        return Response({'message': "created sucessfully"}, status=status.HTTP_201_CREATED)
+    
 
