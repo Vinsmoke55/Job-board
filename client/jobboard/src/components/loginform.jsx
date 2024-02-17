@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
+import Nav from "./nav"
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
+  const [user, setUser] = useState(null);
   const [password, setPassword] = useState('');
   const navigateTo=useNavigate();
 
@@ -14,9 +16,9 @@ const LoginForm = () => {
       const response = await axios.post('http://localhost:8000/api/login', {
         username,
         password,
+
       });
-      console.log('login sucessful')
-      navigateTo('/')
+      setUser(response.data)
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -24,6 +26,7 @@ const LoginForm = () => {
 
   return (
     <div>
+      <Nav userData={user}/>
         <form className="max-w-md mx-auto mt-8" onSubmit={handleLogin}>
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Username:

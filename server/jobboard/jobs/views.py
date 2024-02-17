@@ -6,6 +6,8 @@ from .models import Job
 from .serializers import JobSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 
 class RegistrationView(APIView):
     def post(self, request):
@@ -23,6 +25,21 @@ class RegistrationView(APIView):
         return Response({'message': "created sucessfully"}, status=status.HTTP_201_CREATED)
 
 class LoginView(APIView):
+    # permission_classes=[IsAuthenticated]
+    # def get(self,request):
+    #     # if request.user.is_authenticated:
+    #     #     user_info = {
+    #     #         'username': request.user.username,
+    #     #         'email': request.user.email,
+    #     #     }
+    #     #     return Response(user_info)
+    #     # else:
+    #     #     return Response({'error': 'User not authenticated'})
+    #     user_info = {
+    #             'username': request.user.username,
+    #             'email': request.user.email,
+    #         }
+    #         return Response(user_info)
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -33,18 +50,14 @@ class LoginView(APIView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return Response({'message': "Login sucessful"})
+            return Response({"username":user.username,"password":user.password})
         else:
             return Response({'message': "Login failed"}, status=status.HTTP_400_BAD_REQUEST)
-    def get(self,request):
-            user_info = {
-                'username': request.user.username,
-                'email': request.user.email,
-            }
-            return Response(user_info)
 
-        
 
+
+
+    
 
 # Create your views here.
 class JobsView(APIView):
@@ -62,5 +75,5 @@ class CreateJobView(APIView):
         requirements = request.data.get('requirements')
         Job.objects.create(title=title,company=company,location=location,description=description,requirements=requirements)
         return Response({'message': "created sucessfully"}, status=status.HTTP_201_CREATED)
-    
+
 

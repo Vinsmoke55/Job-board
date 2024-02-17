@@ -39,8 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'jobs'
+    'jobs',
+    # 'rest_framework_simplejwt',
 ]
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -52,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'jobboard.urls'
 
@@ -133,6 +141,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     # Add any other origins as needed
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 # job_board/settings.py
 
